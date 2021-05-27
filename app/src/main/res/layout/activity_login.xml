@@ -37,7 +37,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefin_sans"
         android:text="Sign in to continue"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:transitionName="logo_desc"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,6 +54,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:hint="Username"
+            android:transitionName="User_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
@@ -67,6 +69,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/password"
             android:hint="Password"
+            android:transitionName="password_tran"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -87,16 +90,19 @@
           android:layout_gravity="right"
           android:elevation="0dp"
           android:layout_margin="5dp" />
-        
+
         <Button
+            android:id="@+id/GO_BTN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GO"
-            android:background="#000"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:background="#000"
+            android:text="GO"
+            android:transitionName="button_tran"/>
         
         <Button
+            android:id="@+id/new_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -104,7 +110,8 @@
             android:background="#00000000"
             android:elevation="0dp"
             android:text="New User? Sign up?"
-            android:textColor="#000"/>
+            android:textColor="#000"
+            android:transitionName="login_signup_tran"/>
 
 
         
