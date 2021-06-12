@@ -8,20 +8,22 @@
     android:padding="20dp">
 
     <ImageView
+        android:id="@+id/banner"
         android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_height="148dp"
         android:src="@drawable/logo"
-        android:transitionName="logo_image"/>
-    
+        android:transitionName="logo_image" />
+
     <TextView
+        android:id="@+id/banner2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome"
-        android:textSize="40sp"
-        android:transitionName="logo_text"
-        android:fontFamily="@font/bungee_inline"
         android:layout_marginTop="-20dp"
-        android:textColor="#000"/>
+        android:fontFamily="@font/bungee_inline"
+        android:text="Welcome"
+        android:textColor="#000"
+        android:textSize="40sp"
+        android:transitionName="logo_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -102,20 +104,29 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GO"
         android:background="#000"
+        android:onClick="registerUser"
+        android:text="GO"
         android:textColor="#fff"
-        android:transitionName="button_tran"/>
+        android:transitionName="button_tran" />
 
     <Button
+        android:id="@+id/ToLoginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00000000"
         android:text="Already have an account? Login"
         android:textColor="@color/black"
-        android:transitionName="login_signup_tran"/>
+        android:transitionName="login_signup_tran" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
