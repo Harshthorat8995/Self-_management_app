@@ -51,7 +51,7 @@ public class SignUp extends AppCompatActivity {
         regToLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
+                startActivity(new Intent(getApplicationContext(), todolist.class));
             }
         });
 
@@ -109,8 +109,10 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                                 Toast.makeText(SignUp.this, "User created!!!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(SignUp.this, Login.class));
+
                         } else {
-                            Toast.makeText(SignUp.this, "Unsuccessfull", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp.this, "Unsuccessful", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
