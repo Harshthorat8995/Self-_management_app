@@ -51,7 +51,7 @@ public class SignUp extends AppCompatActivity {
         regToLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), todolist.class));
+                startActivity(new Intent(getApplicationContext(), Login.class));
             }
         });
 
