@@ -27,7 +27,7 @@ public class SignUp extends AppCompatActivity {
     
     TextInputLayout  regName, regUsername, regEmail, regPassword;
     Button regBtn, regToLoginBtn;
-    ProgressBar progressBar;
+
 
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -46,7 +46,7 @@ public class SignUp extends AppCompatActivity {
         regUsername = findViewById(R.id.username);
         regEmail = findViewById(R.id.email);
         regPassword = findViewById(R.id.password);
-        progressBar = findViewById(R.id.progressBar);
+
 
         regToLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class SignUp extends AppCompatActivity {
                     regPassword.requestFocus();
                     return;
                 }
-                progressBar.setVisibility(View.GONE);
+
 
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
