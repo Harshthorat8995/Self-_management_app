@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/email"
-            android:hint="email"
+            android:hint="Email"
             android:transitionName="User_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 

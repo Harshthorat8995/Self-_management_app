@@ -164,6 +164,20 @@ public class todolist extends AppCompatActivity {
                 holder.setTask(model.getTask());
                 holder.setDesc(model.getDescription());
 
+                //when one particular task is clicked, it will open updatedata.xml
+
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        key = getRef(position).getKey();
+                        task = model.getTask();
+                        description = model.getDescription();
+
+                        updateTask();
+
+                    }
+                });
+
             }
 
             @NonNull
@@ -200,5 +214,78 @@ public class todolist extends AppCompatActivity {
         public void setdate(String date){
             TextView datetext = mView.findViewById(R.id.datetv);
         }
+    }
+
+    private void updateTask(){
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.update_data, null);
+        mydialog.setView(view);
+
+        AlertDialog dialog = mydialog.create();
+
+        EditText mtask = view.findViewById(R.id.medittexttask);
+        EditText mdescription = view.findViewById(R.id.medittextdescription);
+
+        mtask.setText(task);
+        mtask.setSelection(task.length());
+
+        mdescription.setText(description);
+        mdescription.setSelection(description.length());
+
+        Button delbutton = view.findViewById(R.id.btndelete);
+        Button updatebutton = view.findViewById(R.id.btnupdate);
+
+        updatebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                task = mtask.getText().toString().trim();
+                description = mdescription.getText().toString().trim();
+
+                String date = DateFormat.getDateInstance().format(new Date());
+
+                Model model = new Model(task, description, key, date);
+
+                reference.child(key).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+
+                        if(task.isSuccessful()){
+                            Toast.makeText(todolist.this, "Data has been updated succesfully", Toast.LENGTH_SHORT).show();
+                        }else {
+                            String err = task.getException().toString();
+                            Toast.makeText(todolist.this, "Update failed " + err, Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+                dialog.dismiss();
+            }
+        });
+
+        delbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reference.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(todolist.this, "Task deleted successfully", Toast.LENGTH_SHORT).show();
+                        }else{
+                            String err = task.getException().toString();
+                            Toast.makeText(todolist.this, "Failed to delete task " + err, Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
+
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }
