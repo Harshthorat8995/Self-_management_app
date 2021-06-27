@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NavigationApp">
-        <activity android:name=".todolist"></activity>
+        <activity android:name=".forgot_password"></activity>
+        <activity android:name=".todolist" />
         <activity android:name=".Homepage" />
         <activity android:name=".fragment_user_list" />
         <activity android:name=".SignUp" />
