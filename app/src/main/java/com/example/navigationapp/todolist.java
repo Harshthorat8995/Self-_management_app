@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,11 +42,13 @@ public class todolist extends AppCompatActivity {
     public Toolbar toolbar;
     public RecyclerView recyclerView;
     public FloatingActionButton floatingActionButton;
+    private TextView textView;
 
     private DatabaseReference reference;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String onlineUserID;
+
 
     private ProgressDialog loader;
 
@@ -57,8 +62,17 @@ public class todolist extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist);
 
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("To do list");
+
+
+
+
 
         mAuth = FirebaseAuth.getInstance();
+
+
 
          recyclerView = findViewById(R.id.recyleview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -66,6 +80,8 @@ public class todolist extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        textView = findViewById(R.id.textView3);
 
         loader = new ProgressDialog(this);
 
@@ -78,10 +94,13 @@ public class todolist extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addtask();
+                textView.setVisibility(View.GONE);
             }
         });
 
     }
+
+
 
     private void addtask() {
         AlertDialog.Builder mydialog = new AlertDialog.Builder(this);
@@ -287,5 +306,25 @@ public class todolist extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout:
+                mAuth.signOut();
+                Intent intent = new Intent(todolist.this, Login.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

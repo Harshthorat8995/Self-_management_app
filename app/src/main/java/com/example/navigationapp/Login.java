@@ -46,6 +46,11 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
+
+
+
+
+
         ///Hooks
         callSignUp = findViewById(R.id.new_user);
         image = findViewById(R.id.LogoImage);
@@ -155,6 +160,7 @@ public class Login extends AppCompatActivity {
                             if (user.isEmailVerified()) {
                                 Toast.makeText(Login.this, "successfully logged in!!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(Login.this, todolist.class));
+                                finish();
 
 
                             } else {
