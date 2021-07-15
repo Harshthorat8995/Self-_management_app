@@ -7,9 +7,9 @@ import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Pair;
-import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -44,13 +44,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-
-
-
-
-
-
-
+        
         ///Hooks
         callSignUp = findViewById(R.id.new_user);
         image = findViewById(R.id.LogoImage);
@@ -58,8 +52,11 @@ public class Login extends AppCompatActivity {
         sloganText = findViewById(R.id.Signin);
         loginemail = findViewById(R.id.email);
         logpassword = findViewById(R.id.password);
-        login_btn = findViewById(R.id.GO_BTN);
 
+        login_btn = findViewById(R.id.GO_BTN);
+        login_btn.setBackgroundColor(Color.BLACK);
+
+//        Forgot password button is clicked
         forgotpassword = (TextView) findViewById(R.id.forgotpassword);
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +103,7 @@ public class Login extends AppCompatActivity {
         callSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Animation from login to sign up activity
                 Intent intent = new Intent(Login.this, SignUp.class);
 
                 Pair[] pairs = new Pair[7];
@@ -144,7 +142,6 @@ public class Login extends AppCompatActivity {
 
                 }
 
-
                 if (password.length() < 6) {
                     logpassword.setError("Min password length should be 6 characters");
                     logpassword.requestFocus();
@@ -155,11 +152,13 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+//                            Get registered users data
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                             if (user.isEmailVerified()) {
                                 Toast.makeText(Login.this, "successfully logged in!!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Login.this, todolist.class));
+                                startActivity(new Intent(Login.this, Todolist.class));
                                 finish();
 
 

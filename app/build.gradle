@@ -31,27 +31,18 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0' //Allows access to new APIs on older API versions of the platform
     implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4' //Position and size widgets in a flexible way with relative positioning.
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'com.google.firebase:firebase-database:20.0.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation platform('com.google.firebase:firebase-bom:26.3.0')
-    implementation 'com.google.firebase:firebase-database-ktx'
-    implementation 'com.karumi:dexter:6.2.2'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation "androidx.recyclerview:recyclerview:1.2.1"
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
-    implementation "com.google.android.gms:play-services-location:18.0.0"
-    implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'com.firebaseui:firebase-ui-database:7.2.0'
+    implementation platform('com.google.firebase:firebase-bom:26.3.0') //// Import the BoM for the Firebase platform
+    implementation 'com.google.firebase:firebase-database-ktx' //For realtime database
+    implementation 'com.karumi:dexter:6.2.2' //Dexter is an Android library to handle runtime permissions for Marshmallow easily
+    implementation "androidx.recyclerview:recyclerview:1.2.1" //Display large sets of data in your UI while minimizing memory usage.
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0" //Display large sets of data in your UI while minimizing memory usage.
+    implementation "androidx.cardview:cardview:1.0.0" //Implement the Material Design card pattern with round corners and drop shadows.
+    implementation 'com.firebaseui:firebase-ui-database:7.2.0' //Connects common UI elements to firebase APIS
 
 
 }

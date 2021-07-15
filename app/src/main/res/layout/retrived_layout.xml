@@ -25,7 +25,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:text="June 27, 2021"
+                android:text="13/07/2021"
                 android:gravity="center"
                 android:background="#FFFF00"
                 android:padding="10dp"

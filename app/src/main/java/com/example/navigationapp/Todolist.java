@@ -10,12 +10,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,9 +37,8 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class todolist extends AppCompatActivity {
+public class Todolist extends AppCompatActivity {
 
-    public Toolbar toolbar;
     public RecyclerView recyclerView;
     public FloatingActionButton floatingActionButton;
     private TextView textView;
@@ -60,8 +59,10 @@ public class todolist extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_todolist);
 
+        ///Adds toolbar and title on the toolbar
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("To do list");
@@ -89,6 +90,7 @@ public class todolist extends AppCompatActivity {
         onlineUserID = mUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("tasks").child(onlineUserID);
 
+//        Hook for floating action button and code when button is clicked
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +103,7 @@ public class todolist extends AppCompatActivity {
     }
 
 
-
+    ///Adds tasks and description to firebase
     private void addtask() {
         AlertDialog.Builder mydialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -148,11 +150,11 @@ public class todolist extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull @NotNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(todolist.this, "Task has been inserted succesfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Todolist.this, "Task has been inserted succesfully", Toast.LENGTH_SHORT).show();
                                 loader.dismiss();
                             }else {
                                 String error = task.getException().toString();
-                                Toast.makeText(todolist.this, "Failed: " + error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Todolist.this, "Failed: " + error, Toast.LENGTH_SHORT).show();
                                 loader.dismiss();
                             }
 
@@ -177,6 +179,8 @@ public class todolist extends AppCompatActivity {
                 .build();
 
         FirebaseRecyclerAdapter<Model, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Model, MyViewHolder>(options) {
+
+            //Fetches data from model class
             @Override
             protected void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position, @NonNull @NotNull Model model) {
                 holder.setdate(model.getDate());
@@ -184,7 +188,6 @@ public class todolist extends AppCompatActivity {
                 holder.setDesc(model.getDescription());
 
                 //when one particular task is clicked, it will open updatedata.xml
-
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -232,9 +235,11 @@ public class todolist extends AppCompatActivity {
 
         public void setdate(String date){
             TextView datetext = mView.findViewById(R.id.datetv);
+            datetext.setText(date);
         }
     }
 
+    ///Updates tasks and description
     private void updateTask(){
         AlertDialog.Builder mydialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -255,6 +260,7 @@ public class todolist extends AppCompatActivity {
         Button delbutton = view.findViewById(R.id.btndelete);
         Button updatebutton = view.findViewById(R.id.btnupdate);
 
+
         updatebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,15 +271,17 @@ public class todolist extends AppCompatActivity {
 
                 Model model = new Model(task, description, key, date);
 
+//                When the task is updated successfully the user should get any of these two toast messages
+
                 reference.child(key).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
 
                         if(task.isSuccessful()){
-                            Toast.makeText(todolist.this, "Data has been updated succesfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Todolist.this, "Data has been updated succesfully", Toast.LENGTH_SHORT).show();
                         }else {
                             String err = task.getException().toString();
-                            Toast.makeText(todolist.this, "Update failed " + err, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Todolist.this, "Update failed " + err, Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -283,6 +291,7 @@ public class todolist extends AppCompatActivity {
             }
         });
 
+        //deletes task
         delbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -290,10 +299,10 @@ public class todolist extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(todolist.this, "Task deleted successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Todolist.this, "Task deleted successfully", Toast.LENGTH_SHORT).show();
                         }else{
                             String err = task.getException().toString();
-                            Toast.makeText(todolist.this, "Failed to delete task " + err, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Todolist.this, "Failed to delete task " + err, Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -308,6 +317,7 @@ public class todolist extends AppCompatActivity {
         dialog.show();
     }
 
+    ///opens mainmenu on toolbar which shows logout button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -315,12 +325,13 @@ public class todolist extends AppCompatActivity {
 
     }
 
+    ///User logouts when clicked on logout button
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
                 mAuth.signOut();
-                Intent intent = new Intent(todolist.this, Login.class);
+                Intent intent = new Intent(Todolist.this, Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();

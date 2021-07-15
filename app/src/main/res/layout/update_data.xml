@@ -4,11 +4,13 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Update your task"
+        android:text="Update your task?"
         android:gravity="center"
         android:background="#FFFF00"
         android:textColor="@color/black"
@@ -106,10 +108,10 @@
             android:layout_weight="2">
 
             <Button
-                android:id="@+id/btnupdate"
+                android:id="@+id/btndelete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Update"
+                android:text="Delete"
                 android:textAllCaps="false"
                 android:background="#FFFF00"
                 android:textSize="17sp"
@@ -123,10 +125,10 @@
             android:layout_weight="2">
 
             <Button
-                android:id="@+id/btndelete"
+                android:id="@+id/btnupdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delete"
+                android:text="Update"
                 android:textAllCaps="false"
                 android:background="#FFFF00"
                 android:textSize="17sp"

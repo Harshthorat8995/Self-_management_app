@@ -21,13 +21,13 @@
 
     <TextView
         android:id="@+id/LogoName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:transitionName="logo_text"
+        android:layout_width="351dp"
+        android:layout_height="120dp"
         android:fontFamily="@font/bungee_inline"
         android:text="Hello there, welcome back"
+        android:textColor="#000"
         android:textSize="40sp"
-        android:textColor="#000">
+        android:transitionName="logo_text">
 
     </TextView>
 
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="#3F51B5"
+            android:background="#3f51b5"
             android:text="GO"
             android:transitionName="button_tran"/>
         

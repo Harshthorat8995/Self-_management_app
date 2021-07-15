@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#fece2F"
     android:textAlignment="center"
-    tools:context=".MainActivity">
+    tools:context=".Splashscreen">
 
     <ImageView
         android:id="@+id/imageView"
