@@ -103,6 +103,7 @@ public class Login extends AppCompatActivity {
         callSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 //                Animation from login to sign up activity
                 Intent intent = new Intent(Login.this, SignUp.class);
 
@@ -122,6 +123,7 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+//        Login btn is clicked
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,12 +150,13 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
+//                If users email is not verified, email is sent to verify the account
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-//                            Get registered users data
+//                            Fetches users data
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                             if (user.isEmailVerified()) {

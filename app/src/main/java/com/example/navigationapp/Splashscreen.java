@@ -43,6 +43,7 @@ public class Splashscreen extends AppCompatActivity {
         slogan.setAnimation(bottomAnim);
 
 
+//        Animation from splash screen to login activity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

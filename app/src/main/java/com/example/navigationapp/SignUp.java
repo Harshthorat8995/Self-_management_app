@@ -29,8 +29,6 @@ public class SignUp extends AppCompatActivity {
     Button regBtn, regToLoginBtn;
 
 
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +38,7 @@ public class SignUp extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+//        Hooks
         regToLoginBtn = (Button) findViewById(R.id.ToLoginBtn);
         regBtn = (Button) findViewById(R.id.Btn);
         regName = findViewById(R.id.name);
@@ -55,6 +54,7 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+//        Register button is clicked
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +104,7 @@ public class SignUp extends AppCompatActivity {
                 }
 
 
+//                Saves user data in Firebase as google as Authentication
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

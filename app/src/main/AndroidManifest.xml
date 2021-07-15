@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NavigationApp">
         <activity android:name=".Todolist" />
-        <activity android:name=".fragment_user_list" />
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />
         <activity android:name=".Splashscreen">

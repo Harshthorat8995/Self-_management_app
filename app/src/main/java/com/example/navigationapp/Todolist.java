@@ -39,6 +39,7 @@ import java.util.Date;
 
 public class Todolist extends AppCompatActivity {
 
+//    Variables
     public RecyclerView recyclerView;
     public FloatingActionButton floatingActionButton;
     private TextView textView;
@@ -102,8 +103,7 @@ public class Todolist extends AppCompatActivity {
 
     }
 
-
-    ///Adds tasks and description to firebase
+//    When clicked on floating action button, inflates input_file
     private void addtask() {
         AlertDialog.Builder mydialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -125,6 +125,8 @@ public class Todolist extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+//       Saves data as realtime database on firebase
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,6 +204,7 @@ public class Todolist extends AppCompatActivity {
 
             }
 
+//            Inflates retrieved_layout after fetching data of the user from realtime database
             @NonNull
             @NotNull
             @Override
