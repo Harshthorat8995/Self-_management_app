@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -37,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class Todolist extends AppCompatActivity {
+public class ToDoList extends AppCompatActivity {
 
 //    Variables
     public RecyclerView recyclerView;
@@ -119,6 +118,8 @@ public class Todolist extends AppCompatActivity {
         Button save = myview.findViewById(R.id.savebtm);
         Button cancel = myview.findViewById(R.id.cancelbutton);
 
+
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,11 +153,11 @@ public class Todolist extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull @NotNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(Todolist.this, "Task has been inserted succesfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ToDoList.this, "Task has been inserted succesfully", Toast.LENGTH_SHORT).show();
                                 loader.dismiss();
                             }else {
                                 String error = task.getException().toString();
-                                Toast.makeText(Todolist.this, "Failed: " + error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ToDoList.this, "Failed: " + error, Toast.LENGTH_SHORT).show();
                                 loader.dismiss();
                             }
 
@@ -270,6 +271,19 @@ public class Todolist extends AppCompatActivity {
                 task = mtask.getText().toString().trim();
                 description = mdescription.getText().toString().trim();
 
+                if(TextUtils.isEmpty(task)){
+                    mtask.setError("Task required");
+                    return;
+                }
+                if (TextUtils.isEmpty(description)){
+                    mdescription.setError("Description required");
+                    return;
+                }else {
+                    loader.setMessage("Adding your data");
+                    loader.setCanceledOnTouchOutside(false);
+                    loader.show();}
+
+
                 String date = DateFormat.getDateInstance().format(new Date());
 
                 Model model = new Model(task, description, key, date);
@@ -281,10 +295,10 @@ public class Todolist extends AppCompatActivity {
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
 
                         if(task.isSuccessful()){
-                            Toast.makeText(Todolist.this, "Data has been updated succesfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ToDoList.this, "Data has been updated succesfully", Toast.LENGTH_SHORT).show();
                         }else {
                             String err = task.getException().toString();
-                            Toast.makeText(Todolist.this, "Update failed " + err, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ToDoList.this, "Update failed " + err, Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -302,10 +316,10 @@ public class Todolist extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(Todolist.this, "Task deleted successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ToDoList.this, "Task deleted successfully", Toast.LENGTH_SHORT).show();
                         }else{
                             String err = task.getException().toString();
-                            Toast.makeText(Todolist.this, "Failed to delete task " + err, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ToDoList.this, "Failed to delete task " + err, Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -334,7 +348,7 @@ public class Todolist extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.logout:
                 mAuth.signOut();
-                Intent intent = new Intent(Todolist.this, Login.class);
+                Intent intent = new Intent(ToDoList.this, Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();

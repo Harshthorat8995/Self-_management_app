@@ -62,10 +62,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText resetMail = new EditText(v.getContext());
-                AlertDialog.Builder passwordresetdialog = new AlertDialog.Builder(v.getContext());
+                AlertDialog.Builder passwordresetdialog = new AlertDialog.Builder(v.getContext()); // displays dialog to reset password
                 passwordresetdialog.setTitle("Reset password");
                 passwordresetdialog.setMessage("Enter your email to recieve password reset link");
                 passwordresetdialog.setView(resetMail);
+
+
 
                 passwordresetdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -123,6 +125,7 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
 //        Login btn is clicked
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +135,7 @@ public class Login extends AppCompatActivity {
 
 
                 if (email.isEmpty()) {
-                    loginemail.setError("Enter your student ID");
+                    loginemail.setError("Enter your Email");
                     loginemail.requestFocus();
                     return;
                 }
@@ -144,11 +147,6 @@ public class Login extends AppCompatActivity {
 
                 }
 
-                if (password.length() < 6) {
-                    logpassword.setError("Min password length should be 6 characters");
-                    logpassword.requestFocus();
-                    return;
-                }
 
 //                If users email is not verified, email is sent to verify the account
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -161,7 +159,7 @@ public class Login extends AppCompatActivity {
 
                             if (user.isEmailVerified()) {
                                 Toast.makeText(Login.this, "successfully logged in!!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Login.this, Todolist.class));
+                                startActivity(new Intent(Login.this, ToDoList.class));
                                 finish();
 
 

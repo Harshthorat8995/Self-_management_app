@@ -9,20 +9,15 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
-
+//  variables
     private FirebaseAuth mAuth;
     
     TextInputLayout  regName, regUsername, regEmail, regPassword;
@@ -47,6 +42,7 @@ public class SignUp extends AppCompatActivity {
         regPassword = findViewById(R.id.password);
 
 
+//        Opens login.class
         regToLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
