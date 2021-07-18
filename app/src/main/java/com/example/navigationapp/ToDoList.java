@@ -93,6 +93,7 @@ public class ToDoList extends AppCompatActivity {
 //        Hook for floating action button and code when button is clicked
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 addtask();
@@ -102,7 +103,7 @@ public class ToDoList extends AppCompatActivity {
 
     }
 
-//    When clicked on floating action button, inflates input_file
+//    When clicked on floating action button, inflates input_file (dialog)
     private void addtask() {
         AlertDialog.Builder mydialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -120,6 +121,7 @@ public class ToDoList extends AppCompatActivity {
 
 
 
+//        When cancel button is clicked dialog closes
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +129,7 @@ public class ToDoList extends AppCompatActivity {
             }
         });
 
-//       Saves data as realtime database on firebase
+//        When save button is clicked it will show errors if task and description is left empty. If everything is perfect it show message
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,8 +150,12 @@ public class ToDoList extends AppCompatActivity {
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
+
+//                    Saves data as realtime database on firebase
                     Model model = new Model(mTask, mdescription, id, date);
                     reference.child(id).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+//                        On complete it will show Toast messages
                         @Override
                         public void onComplete(@NonNull @NotNull Task<Void> task) {
                             if(task.isSuccessful()){
@@ -183,14 +189,14 @@ public class ToDoList extends AppCompatActivity {
 
         FirebaseRecyclerAdapter<Model, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Model, MyViewHolder>(options) {
 
-            //Fetches data from model class
+            //Fetches data from model class and displays data at specific position
             @Override
             protected void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position, @NonNull @NotNull Model model) {
                 holder.setdate(model.getDate());
                 holder.setTask(model.getTask());
                 holder.setDesc(model.getDescription());
 
-                //when one particular task is clicked, it will open updatedata.xml
+                //when one particular task is clicked, it will start updatetask();
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -227,23 +233,26 @@ public class ToDoList extends AppCompatActivity {
             mView = itemView;
 
         }
+//        Sets task i.e fetches data from realtime database and shows it
         public void setTask(String task){
             TextView tasktextview = mView.findViewById(R.id.tasktv);
             tasktextview.setText(task);
         }
 
+//        Sets description i.e fetches data from realtime database and shows it
         public void setDesc(String desc){
             TextView desctextview = mView.findViewById(R.id.description);
             desctextview.setText(desc);
         }
 
+//        setDate i.e fetches data from realtime database and shows it
         public void setdate(String date){
             TextView datetext = mView.findViewById(R.id.datetv);
             datetext.setText(date);
         }
     }
 
-    ///Updates tasks and description
+//    Inflates update_data when clicked on task
     private void updateTask(){
         AlertDialog.Builder mydialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -265,6 +274,7 @@ public class ToDoList extends AppCompatActivity {
         Button updatebutton = view.findViewById(R.id.btnupdate);
 
 
+//        When update button is clicked it will show errors if task and description is left empty. If everything is perfect it show message
         updatebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -288,7 +298,7 @@ public class ToDoList extends AppCompatActivity {
 
                 Model model = new Model(task, description, key, date);
 
-//                When the task is updated successfully the user should get any of these two toast messages
+//                When the task and description is updated successfully the user should get any of these two toast messages
 
                 reference.child(key).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -308,11 +318,14 @@ public class ToDoList extends AppCompatActivity {
             }
         });
 
-        //deletes task
+
+//        When delete button is clicked it will remove that data from realtime database
         delbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 reference.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+
+//                    On complete it will show Toast messages
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
                         if(task.isSuccessful()){
